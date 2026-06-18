@@ -14,8 +14,8 @@ function getDBConnection() {
     }
 
     // Identifiants (Configurés pour ton local, s'adaptera sur o2switch via getenv)
-    $host     = getenv('DB_HOST') ?: 'localhost';
-    $dbname   = getenv('MYSQLDATABASE') ?: 'vite_gourmand_db'; 
+    $host     = getenv('DB_HOST') ?: '127.0.0.1;port=3307';
+    $dbname   = getenv('MYSQLDATABASE') ?: 'viteetgourmand'; 
     $username = getenv('DB_USER') ?: 'root';
     $password = getenv('DB_PASS') ?: ''; 
 
