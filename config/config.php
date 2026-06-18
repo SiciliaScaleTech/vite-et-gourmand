@@ -1,6 +1,7 @@
 <?php
 // config/config.php
 
+define('BASE_URL', '/vite-et-gourmand/public/');
 define('APP_NAME', 'Vite & Gourmand');
 
 /**

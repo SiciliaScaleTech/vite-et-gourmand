@@ -1,0 +1,239 @@
+
+:root {
+    --mimolette: #FFE699;
+    --cheddar: #ED9D36;
+    --dark: #212529;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background-color: #f8f9fa;
+}
+
+main {
+    flex: 1 0 auto;
+}
+
+footer {
+    flex-shrink: 0;
+}
+
+/* Header & Nav */
+.navbar-custom {
+    background-color: var(--mimolette);
+}
+
+.nav-link.active {
+    color: var(--dark) !important;
+}
+
+.cart-icon {
+    font-size: 1.5rem;
+    text-decoration: none;
+}
+
+/* Bannière Hero */
+.hero-banner {
+    background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), 
+                url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1500');
+    background-size: cover;
+    background-position: center;
+    height: 60vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}
+
+/* Boutons */
+.btn-cheddar {
+    background-color: var(--cheddar);
+    color: white;
+    border: none;
+    transition: transform 0.2s;
+}
+
+.btn-cheddar:hover {
+    background-color: #d88c2d;
+    color: white;
+    transform: scale(1.05);
+}
+
+/* Cards & Menus */
+.card-menu {
+    border: none;
+    transition: box-shadow 0.3s;
+}
+
+.card-menu:hover {
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1) !important;
+}
+
+.text-cheddar {
+    color: var(--cheddar);
+}
+
+/* Section Avis (Scroll horizontal) */
+.testimonial-scroll {
+    overflow-x: auto;
+    display: flex;
+    gap: 20px;
+    padding: 20px 0;
+    scrollbar-width: thin; /* Pour Firefox */
+}
+
+.testimonial-card {
+    min-width: 300px;
+    border: none;
+}
+
+.bg-mimolette-light {
+    background-color: #fffcf2; 
+    border-radius: 20px;
+}
+
+.testimonial-card {
+    min-width: 320px;
+    margin: 10px;
+}
+
+.alert-cheddar {
+    background-color: #ffb703; 
+    color: #1a1a1a;            
+    border-left: 5px solid #fb8500; 
+    border-radius: 15px;       
+}
+
+.alert-cheddar a {
+    color: #000;
+    text-decoration: underline;
+}
+
+.alert-cheddar a:hover {
+    color: #fb8500;
+}
+
+.carte-header {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.header-titre-bloc {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+}
+
+.carte-header .titre-page {
+    font-size: 1.5rem !important; /* Titre plus compact sur mobile */
+    margin-bottom: 0;
+}
+
+.carte-header .btn-ajouter {
+    width: 100%; /* Le bouton prend toute la largeur sur mobile pour cliquer facilement */
+    text-align: center;
+    padding: 10px;
+}
+
+
+/* --- FORMAT RESPONSIVE POUR LE PANIER (MOBILE) --- */
+@media screen and (max-width: 768px) {
+    
+    /* On force le tableau, le corps et les lignes à se comporter comme des blocs verticaux */
+    .table-responsive, 
+    table.table, 
+    table.table tbody, 
+    table.table tr {
+        display: block;
+        width: 100% !important;
+    }
+
+    /* On cache l'en-tête du tableau (Nom, Prix, Quantité...) car ça ne rentre plus */
+    table.table thead {
+        display: none;
+    }
+
+    /* Chaque ligne du tableau devient une jolie carte individuelle */
+    table.table tbody tr {
+        margin-bottom: 15px;
+        padding: 15px;
+        border: 1px solid #e0e0e0;
+        border-radius: 8px;
+        background-color: #fff;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+
+    /* Chaque cellule (case) se met à la ligne */
+    table.table tbody td {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        text-align: right;
+        padding: 8px 0;
+        border: none;
+        border-bottom: 1px dashed #eee;
+    }
+
+    /* On enlève la bordure pointillée pour la dernière case de la carte */
+    table.table tbody td:last-child {
+        border-bottom: none;
+    }
+
+    /* --- ASTUCE MAGIQUE : Ajouter des labels automatiques --- */
+    table.table tbody td::before {
+        content: attr(data-label); /* Va chercher le texte de l'attribut data-label */
+        font-weight: bold;
+        text-align: left;
+        color: #555;
+        font-family: 'Poppins', sans-serif;
+    }
+
+    /* Ajustement pour l'image du menu si tu en as une dans le panier */
+    table.table tbody td img {
+        max-width: 80px;
+        height: auto;
+        margin-left: auto; /* Aligne l'image à droite */
+    }
+
+    .btn-enregistrer {
+        font-size: 0.95rem !important; /* On réduit un peu la taille du texte */
+        padding-left: 1.5rem !important; /* On réduit le gros padding horizontal */
+        padding-right: 1.5rem !important;
+        padding-top: 0.5rem !important;   /* On ajuste la hauteur pour qu'il soit moins massif */
+        padding-bottom: 0.5rem !important;
+        width: 100%; /* Optionnel : le bouton prend toute la largeur sur mobile pour être plus facile à cliquer, supprime cette ligne si tu veux qu'il reste aligné à droite */
+    }
+}
+
+
+
+/* --- MEDIA QUERY : POUR ORDINATEUR (Dès 768px) --- */
+@media screen and (min-width: 768px) {
+    .carte-header {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center; /* Aligne le titre et le bouton vert sur la même ligne au centre */
+    }
+
+    .header-titre-bloc {
+        flex-direction: row;
+        align-items: center; /* Aligne le bouton retour et le titre H2 côte à côte */
+        gap: 20px;
+    }
+
+    .carte-header .titre-page {
+        font-size: 2rem !important; /* Le titre reprend sa taille normale sur PC */
+    }
+
+    .carte-header .btn-ajouter {
+        width: auto; /* Le bouton vert reprend sa taille normale en fonction de son texte */
+        padding: 8px 20px;
+    }
+}
+

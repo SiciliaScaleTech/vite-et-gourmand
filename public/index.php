@@ -30,6 +30,18 @@ try {
             $controller->logout();
             break;
 
+        case 'menus':
+            require_once __DIR__ . '/../app/Controllers/MenuController.php';
+            $controller = new MenuController();
+            $controller->index();
+            break;
+
+        case 'details-menu':
+            require_once __DIR__ . '/../app/Controllers/MenuController.php';
+            $controller = new MenuController();
+            $controller->showDetails();
+            break;
+
         default:
             http_response_code(404);
             echo "<div class='container py-5'><h1>404 - Page introuvable</h1></div>";
