@@ -1,0 +1,11 @@
+{
+    "name": "vite-gourmand/app",
+    "description": "Refactorisation MVC de Vite et Gourmand",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/"
+        }
+    },
+    "require": {}
+}
