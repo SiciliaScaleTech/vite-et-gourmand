@@ -1,4 +1,5 @@
 <?php
+
 session_start();
 
 require_once __DIR__ . '/../vendor/autoload.php';
@@ -91,12 +92,31 @@ try {
             $controller->process();
             break;
 
+        case 'profil':
+            require_once __DIR__ . '/../app/Controllers/UserController.php';
+            $controller = new UserController();
+            $controller->index();
+            break;
+
+        case 'profil-update':
+            require_once __DIR__ . '/../app/Controllers/UserController.php';
+            $controller = new UserController();
+            $controller->updateProfile();
+            break;
+
+        case 'profil-avis':
+            require_once __DIR__ . '/../app/Controllers/UserController.php';
+            $controller = new UserController();
+            $controller->submitAvis();
+            break;
+
         default:
             http_response_code(404);
             echo "<div class='container py-5'><h1>404 - Page introuvable</h1></div>";
             break;
     }
 } catch (\Throwable $e) {
+    
     http_response_code(500);
     echo "<div class='container py-5'><h1>Une erreur temporaire est survenue</h1><p>Le reste du site fonctionne.</p></div>";
 }

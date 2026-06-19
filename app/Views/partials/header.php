@@ -54,7 +54,7 @@ if (isset($_SESSION['panier']) && !empty($_SESSION['panier'])) {
                             
                             <ul class="dropdown-menu dropdown-menu-end shadow border-0 mt-2">
                                 <li>
-                                    <a class="dropdown-item py-2" href="<?= BASE_URL ?>index.php?page=mon-profil">Mon profil</a>
+                                    <a class="dropdown-item py-2" href="<?= BASE_URL ?>index.php?page=profil">Mon profil</a>
                                 </li>
                                 
                                 <?php if (isset($_SESSION['user_role']) && in_array($_SESSION['user_role'], ['employe', 'admin'])): ?>
@@ -64,10 +64,6 @@ if (isset($_SESSION['panier']) && !empty($_SESSION['panier'])) {
                                         <?php else: ?>
                                             <a class="dropdown-item py-2 fw-bold text-success" href="<?= BASE_URL ?>index.php?page=employe-dashboard">Dashboard Employé</a>
                                         <?php endif; ?>
-                                    </li>
-                                <?php else: ?>
-                                    <li>
-                                        <a class="dropdown-item py-2" href="<?= BASE_URL ?>index.php?page=mes-commandes">Mes commandes</a>
                                     </li>
                                 <?php endif; ?>
                                 
