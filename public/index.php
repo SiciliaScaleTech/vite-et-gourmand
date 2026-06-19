@@ -79,6 +79,18 @@ try {
             $controller->confirmation();
             break;
 
+        case 'contact':
+            require_once __DIR__ . '/../app/Controllers/ContactController.php';
+            $controller = new ContactController();
+            $controller->index();
+            break;
+
+        case 'contact-process':
+            require_once __DIR__ . '/../app/Controllers/ContactController.php';
+            $controller = new ContactController();
+            $controller->process();
+            break;
+
         default:
             http_response_code(404);
             echo "<div class='container py-5'><h1>404 - Page introuvable</h1></div>";
