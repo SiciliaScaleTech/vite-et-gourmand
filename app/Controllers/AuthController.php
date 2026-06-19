@@ -24,7 +24,6 @@ class AuthController {
                 $_SESSION['user_prenom'] = $user['prenom'];
                 $_SESSION['user_role'] = strtolower($user['role']); 
                 
-                // Redirections adaptées au routeur index.php?page=...
                 if ($_SESSION['user_role'] === 'admin') {
                     header("Location: index.php?page=admin-dashboard");
                 } elseif ($_SESSION['user_role'] === 'employe') {

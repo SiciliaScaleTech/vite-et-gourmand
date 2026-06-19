@@ -4,9 +4,10 @@ session_start();
 require_once __DIR__ . '/../vendor/autoload.php';
 require_once __DIR__ . '/../config/config.php';
 
+$pdo = getDBConnection();
+
 $page = isset($_GET['page']) ? $_GET['page'] : 'home';
 
-// 1. On affiche TOUJOURS le header commun en haut
 require_once __DIR__ . '/../app/Views/partials/header.php';
 
 try {
@@ -42,16 +43,50 @@ try {
             $controller->showDetails();
             break;
 
+       case 'panier':
+            require_once __DIR__ . '/../app/Controllers/CartController.php';
+            $controller = new CartController();
+            $controller->index();
+            break;
+
+        case 'panier-add':
+            require_once __DIR__ . '/../app/Controllers/CartController.php';
+            $controller = new CartController();
+            $controller->add();
+            break;
+
+        case 'panier-update':
+            require_once __DIR__ . '/../app/Controllers/CartController.php';
+            $controller = new CartController();
+            $controller->update();
+            break;
+
+        case 'panier-delete':
+            require_once __DIR__ . '/../app/Controllers/CartController.php';
+            $controller = new CartController();
+            $controller->delete();
+            break;
+
+        case 'panier-validate':
+            require_once __DIR__ . '/../app/Controllers/CartController.php';
+            $controller = new CartController();
+            $controller->validate();
+            break;
+
+        case 'confirmation':
+            require_once __DIR__ . '/../app/Controllers/CartController.php';
+            $controller = new CartController();
+            $controller->confirmation();
+            break;
+
         default:
             http_response_code(404);
             echo "<div class='container py-5'><h1>404 - Page introuvable</h1></div>";
             break;
     }
 } catch (\Throwable $e) {
-    // Si quoi que ce soit plante, le site affiche proprement l'erreur mais reste en ligne
     http_response_code(500);
     echo "<div class='container py-5'><h1>Une erreur temporaire est survenue</h1><p>Le reste du site fonctionne.</p></div>";
 }
 
-// 2. On affiche TOUJOURS le footer commun en bas
 require_once __DIR__ . '/../app/Views/partials/footer.php';

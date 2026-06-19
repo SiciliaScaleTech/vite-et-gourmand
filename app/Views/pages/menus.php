@@ -141,7 +141,7 @@
                         <span class="text-muted small">Total pour <?= $info['pers_min']; ?> pers. min :</span>
                         <h4 class="fw-bold text-cheddar mb-0"><?= ($info['prix_pers'] * $info['pers_min']); ?> €</h4>
                     </div>
-                    <button type="button" class="btn btn-cheddar rounded-pill px-4 fw-bold shadow-sm">Réserver ce menu</button>
+                    <a href="<?= BASE_URL ?>index.php?page=panier-add&id=<?= $menu['id'] ?>" class="btn btn-cheddar">Ajouter au panier</a>
                 </div>
             </div>
         </div>

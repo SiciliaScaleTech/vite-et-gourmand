@@ -1,5 +1,4 @@
 <?php
-// app/Controllers/MenuController.php
 
 require_once __DIR__ . '/../Models/MenuModel.php';
 
@@ -33,7 +32,7 @@ class MenuController {
         // Données récupérées via le modèle
         $menus = $this->menuModel->getAllMenus();
 
-        // Les détails statiques pour tes modals (que tu avais en bas de page)
+        // Les détails statiques 
         $menus_details = $this->getStaticMenusDetails();
 
         // Envoi des variables vers la vue

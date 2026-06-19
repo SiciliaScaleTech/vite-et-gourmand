@@ -71,7 +71,7 @@
                             <?php if ($menu['stock'] <= 0): ?>
                                 <button class="btn btn-secondary btn-lg rounded-pill px-4 fw-bold shadow-sm" disabled>Indisponible</button>
                             <?php else: ?>
-                                <a href="<?= BASE_URL ?>index.php?page=ajouter-panier&id=<?= $menu['id'] ?>" class="btn btn-primary btn-lg rounded-pill px-4 fw-bold shadow-sm">
+                                <a href="<?= BASE_URL ?>index.php?page=panier-add&id=<?= $menu['id'] ?>" class="btn btn-cheddar">
                                     Réserver ce menu
                                 </a>
                             <?php endif; ?>

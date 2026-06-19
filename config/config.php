@@ -1,5 +1,4 @@
 <?php
-// config/config.php
 
 define('BASE_URL', '/vite-et-gourmand/public/');
 define('APP_NAME', 'Vite & Gourmand');
@@ -14,7 +13,7 @@ function getDBConnection() {
         return $pdo;
     }
 
-    // Identifiants (Configurés pour ton local, s'adaptera sur o2switch via getenv)
+    // Identifiants 
     $host     = getenv('DB_HOST') ?: '127.0.0.1;port=3307';
     $dbname   = getenv('MYSQLDATABASE') ?: 'viteetgourmand'; 
     $username = getenv('DB_USER') ?: 'root';
@@ -33,7 +32,6 @@ function getDBConnection() {
         );
         return $pdo;
     } catch (PDOException $e) {
-        // On n'utilise pas die(), on enregistre juste l'erreur dans les logs
         error_log("Erreur BDD : " . $e->getMessage());
         return null; // Renvoie null pour que le contrôleur gère la panne proprement
     }
