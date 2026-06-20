@@ -142,6 +142,19 @@ footer {
     padding: 10px;
 }
 
+.card-hover {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.card-hover:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1) !important;
+}
+.transform-hover {
+    transition: all 0.2s ease;
+}
+.transform-hover:hover {
+    transform: scale(1.05);
+}
 
 /* --- FORMAT RESPONSIVE POUR LE PANIER (MOBILE) --- */
 @media screen and (max-width: 768px) {

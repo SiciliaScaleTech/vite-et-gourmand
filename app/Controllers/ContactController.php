@@ -14,7 +14,7 @@ class ContactController {
         require_once __DIR__ . '/../Views/pages/contact.php';
     }
 
-    // --- TRAITER LE FORMULAIRE (Ex contact-process) ---
+    // --- TRAITER LE FORMULAIRE ---
     public function process() {
         if ($_SERVER["REQUEST_METHOD"] === "POST") {
 

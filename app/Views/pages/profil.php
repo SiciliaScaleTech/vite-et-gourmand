@@ -12,12 +12,12 @@
     <ul class="nav nav-pills mb-4" id="pills-tab" role="tablist">
         <li class="nav-item" role="presentation">
             <button class="nav-link active rounded-pill fw-bold me-2" id="pills-profil-tab" data-bs-toggle="pill" data-bs-target="#pills-profil" type="button" role="tab">
-                👤 Mes Informations
+                Mes Informations
             </button>
         </li>
         <li class="nav-item" role="presentation">
             <button class="nav-link rounded-pill fw-bold" id="pills-commandes-tab" data-bs-toggle="pill" data-bs-target="#pills-commandes" type="button" role="tab">
-                📦 Mes Commandes (<?= count($commandes) ?>)
+                Mes Commandes (<?= count($commandes) ?>)
             </button>
         </li>
     </ul>

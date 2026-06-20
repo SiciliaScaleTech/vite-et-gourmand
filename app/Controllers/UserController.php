@@ -18,7 +18,6 @@ class UserController {
         // Messages d'alerte
         $message = $_SESSION['profile_message'] ?? "";
         $message_avis = $_SESSION['avis_message'] ?? "";
-        // On les efface de la session pour qu'ils disparaissent au prochain rafraîchissement
         unset($_SESSION['profile_message'], $_SESSION['avis_message']);
 
         // 1. Récupération des données utilisateur

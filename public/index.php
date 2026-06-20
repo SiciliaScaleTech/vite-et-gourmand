@@ -13,10 +13,7 @@ require_once __DIR__ . '/../app/Views/partials/header.php';
 
 try {
     switch ($page) {
-        case 'home':
-            echo "<div class='container py-5'><h1>Accueil Vite & Gourmand</h1></div>";
-            break;
-
+        // --- AUTHENTIFICATION ---
         case 'login':
             $controller = new App\Controllers\AuthController();
             $controller->login();
@@ -32,6 +29,7 @@ try {
             $controller->logout();
             break;
 
+        // --- MENUS ---
         case 'menus':
             require_once __DIR__ . '/../app/Controllers/MenuController.php';
             $controller = new MenuController();
@@ -44,7 +42,8 @@ try {
             $controller->showDetails();
             break;
 
-       case 'panier':
+        // --- PANIER ---
+        case 'panier':
             require_once __DIR__ . '/../app/Controllers/CartController.php';
             $controller = new CartController();
             $controller->index();
@@ -80,6 +79,7 @@ try {
             $controller->confirmation();
             break;
 
+        // --- CONTACT ---
         case 'contact':
             require_once __DIR__ . '/../app/Controllers/ContactController.php';
             $controller = new ContactController();
@@ -92,6 +92,7 @@ try {
             $controller->process();
             break;
 
+        // --- PROFIL ---
         case 'profil':
             require_once __DIR__ . '/../app/Controllers/UserController.php';
             $controller = new UserController();
@@ -110,13 +111,22 @@ try {
             $controller->submitAvis();
             break;
 
+        // --- ACCUEIL (FUSIONNÉ ET SANS DOUBLON) ---
+        case 'home':
+        case '': 
+            require_once __DIR__ . '/../app/Controllers/HomeController.php';
+            $controller = new HomeController();
+            $controller->index();
+            break;
+
+        // --- PAGE 404 ---
         default:
             http_response_code(404);
             echo "<div class='container py-5'><h1>404 - Page introuvable</h1></div>";
             break;
     }
 } catch (\Throwable $e) {
-    
+   
     http_response_code(500);
     echo "<div class='container py-5'><h1>Une erreur temporaire est survenue</h1><p>Le reste du site fonctionne.</p></div>";
 }
