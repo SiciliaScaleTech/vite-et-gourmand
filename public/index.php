@@ -1,15 +1,15 @@
 <?php
-
 session_start();
 
 require_once __DIR__ . '/../vendor/autoload.php';
 require_once __DIR__ . '/../config/config.php';
 
 $pdo = getDBConnection();
-
 $page = isset($_GET['page']) ? $_GET['page'] : 'home';
 
-require_once __DIR__ . '/../app/Views/partials/header.php';
+// On capture l'affichage ou on exécute la logique métier AVANT d'afficher le Header
+// pour éviter le bug des redirections (Header Already Sent)
+ob_start(); 
 
 try {
     switch ($page) {
@@ -111,13 +111,56 @@ try {
             $controller->submitAvis();
             break;
 
-        // --- ACCUEIL (FUSIONNÉ ET SANS DOUBLON) ---
+        // --- ACCUEIL ---
         case 'home':
         case '': 
             require_once __DIR__ . '/../app/Controllers/HomeController.php';
             $controller = new HomeController();
             $controller->index();
             break;
+
+        // --- ESPACE EMPLOYÉ & MODÉRATION ---
+        case 'employe-dashboard':
+            require_once __DIR__ . '/../app/Controllers/EmployeController.php';
+            $controller = new App\Controllers\EmployeController();
+            $controller->dashboard();
+            break;
+
+        case 'employe-details-commande':
+            require_once __DIR__ . '/../app/Controllers/EmployeController.php';
+            $controller = new App\Controllers\EmployeController();
+            $controller->detailsCommande();
+            break;
+
+        case 'employe-avis':
+            require_once __DIR__ . '/../app/Controllers/EmployeController.php';
+            $controller = new App\Controllers\EmployeController();
+            $controller->gererAvis();
+            break;
+
+        case 'employe-carte':
+            require_once __DIR__ . '/../app/Controllers/EmployeController.php';
+            $controller = new App\Controllers\EmployeController();
+            $controller->carte();
+            break;
+
+        case 'employe-ajouter-menu':
+            require_once __DIR__ . '/../app/Controllers/EmployeController.php';
+            $controller = new App\Controllers\EmployeController();
+            $controller->ajouterMenu();
+            break;
+
+        case 'employe-modifier-menu':
+            require_once __DIR__ . '/../app/Controllers/EmployeController.php';
+            $controller = new App\Controllers\EmployeController();
+            $controller->modifierMenu();
+            break;
+
+        case 'employe-messages':
+            require_once __DIR__ . '/../app/Controllers/EmployeController.php';
+            $controller = new App\Controllers\EmployeController();
+            $controller->voirMessages();
+            break;    
 
         // --- PAGE 404 ---
         default:
@@ -126,9 +169,14 @@ try {
             break;
     }
 } catch (\Throwable $e) {
-   
     http_response_code(500);
-    echo "<div class='container py-5'><h1>Une erreur temporaire est survenue</h1><p>Le reste du site fonctionne.</p></div>";
+    echo "<div class='container py-5'><h1>Une erreur survenue</h1><p>" . $e->getMessage() . "</p></div>";
 }
 
+// On récupère le contenu de la vue générée
+$content = ob_get_clean();
+
+// On affiche la page dans le bon ordre d'en-têtes
+require_once __DIR__ . '/../app/Views/partials/header.php';
+echo $content;
 require_once __DIR__ . '/../app/Views/partials/footer.php';
