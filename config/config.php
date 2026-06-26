@@ -36,3 +36,27 @@ function getDBConnection() {
         return null; // Renvoie null pour que le contrôleur gère la panne proprement
     }
 }
+
+/**
+ * Fonction globale pour récupérer la connexion MongoDB Atlas en toute sécurité
+ */
+function getMongoConnection() {
+    static $manager = null;
+
+    if ($manager !== null) {
+        return $manager;
+    }
+
+    try {
+        // Remplace par ta vraie chaîne de connexion si elle est différente
+        $uri = "mongodb+srv://siciliascaletech_db_user:LexaZack11082020@cluster1.nymkcqx.mongodb.net/"; 
+        $manager = new MongoDB\Driver\Manager($uri);
+        return $manager;
+    } catch (Exception $e) {
+        error_log("Erreur MongoDB : " . $e->getMessage());
+        return null;
+    }
+}
+
+// Nom de la collection (utilisée partout dans ton app)
+define('MONGO_COLLECTION_MENUS', 'viteetgourmand.menu'); // bdd.collection

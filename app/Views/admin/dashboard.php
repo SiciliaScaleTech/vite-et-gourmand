@@ -192,4 +192,4 @@
     const donneesVentes = <?= json_encode($donnees_graphique) ?>;
 </script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script src="<?= BASE_URL ?>styles/script/admin_dashboard.js"></script>
+<script src="<?= BASE_URL ?>styles/js/admin_dashboard.js"></script>

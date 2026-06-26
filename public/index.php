@@ -8,7 +8,6 @@ $pdo = getDBConnection();
 $page = isset($_GET['page']) ? $_GET['page'] : 'home';
 
 // On capture l'affichage ou on exécute la logique métier AVANT d'afficher le Header
-// pour éviter le bug des redirections (Header Already Sent)
 ob_start(); 
 
 try {
@@ -160,6 +159,19 @@ try {
             require_once __DIR__ . '/../app/Controllers/EmployeController.php';
             $controller = new App\Controllers\EmployeController();
             $controller->voirMessages();
+            break;   
+            
+        // --- ESPACE ADMINISTRATEUR ---
+        case 'admin-dashboard':
+            require_once __DIR__ . '/../app/Controllers/AdminController.php';
+            $controller = new App\Controllers\AdminController();
+            $controller->dashboard();
+            break;
+
+        case 'admin-api-filtre':
+            require_once __DIR__ . '/../app/Controllers/AdminController.php';
+            $controller = new App\Controllers\AdminController();
+            $controller->apiFiltreStats();
             break;    
 
         // --- PAGE 404 ---

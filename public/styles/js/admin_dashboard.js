@@ -29,36 +29,54 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // 2. Interception du formulaire de filtrage (Ajax)
+    // 2. Interception du formulaire de filtrage (Ajax)
     const formFiltre = document.getElementById('formFiltre');
     if (formFiltre) {
         console.log("L'espion JS : Le formulaire a bien été trouvé dans la page !");
 
         formFiltre.addEventListener('submit', (e) => {
-            e.preventDefault(); // Empêche le rechargement de la page
+            e.preventDefault(); // Empêche le rechargement physique de la page
 
             const dateDebut = document.getElementById('date_debut').value;
             const dateFin = document.getElementById('date_fin').value;
 
             console.log("Clic détecté ! Dates envoyées :", { dateDebut, dateFin });
 
-            fetch('sync_passerelle.php', {
+            // CORRECTION : On pointe vers index.php et on inclut la page dans le JSON pour le routeur
+            // Ou on garde l'URL propre si ton routeur lit le GET en même temps que le POST
+            fetch('index.php?page=admin-api-filtre', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ date_debut: dateDebut, date_fin: dateFin })
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify({ 
+                    date_debut: dateDebut, 
+                    date_fin: dateFin 
+                })
             })
-            .then(response => response.json())
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("Erreur HTTP, statut : " + response.status);
+                }
+                return response.json();
+            })
             .then(res => {
                 console.log("Réponse brute reçue de la passerelle :", res);
 
                 if (res.status === 'success') {
                     // Mise à jour du Chiffre d'Affaires textuel
-                    document.getElementById('affichage-ca').innerText = res.ca;
+                    const affichageCa = document.getElementById('affichage-ca');
+                    if (affichageCa) {
+                        affichageCa.innerText = res.ca;
+                    }
 
-                    // Mise à jour du graphique
+                    // Mise à jour du graphique Chart.js
                     if (monGraphique) {
                         monGraphique.data.labels = res.labels;
                         monGraphique.data.datasets[0].data = res.donnees;
-                        monGraphique.update(); // Redessine le graphique
+                        monGraphique.update(); // Redessine le graphique avec les nouvelles barres
+                        console.log("Graphique mis à jour avec succès !");
                     }
                 } else {
                     console.error("Erreur retournée par le PHP:", res.message);
