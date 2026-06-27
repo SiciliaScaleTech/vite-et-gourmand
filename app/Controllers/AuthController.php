@@ -56,22 +56,16 @@ class AuthController {
             $user = $stmt->fetch();
 
             if ($user) {
-                // Génération d'un token unique et sécurisé
                 $token = bin2hex(random_bytes(32));
-                // Expiration dans 1 heure
                 $expiresAt = date('Y-m-d H:i:s', strtotime('+1 hour'));
 
-                // Enregistrement en BDD
                 $update = $pdo->prepare("UPDATE utilisateurs SET reset_token = ?, reset_expires_at = ? WHERE id = ?");
                 $update->execute([$token, $expiresAt, $user['id']]);
 
-                // Création du lien de réinitialisation
                 $resetLink = "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['SCRIPT_NAME'] . "?page=reset-password&token=" . $token;
 
-                // --- SIMULATION D'ENVOI D'EMAIL (Idéal pour le développement) ---
                 $_SESSION['success'] = "Un email de réinitialisation a été simulé. <br><strong><a href='{$resetLink}'>Cliquez ici pour réinitialiser le mot de passe</a></strong>";
             } else {
-                // Pour des raisons de sécurité, on affiche le même message même si l'email n'existe pas
                 $_SESSION['success'] = "Si cet email existe dans notre base, un lien de réinitialisation vous a été envoyé.";
             }
 
@@ -79,7 +73,6 @@ class AuthController {
             exit;
         }
 
-        // Affichage du formulaire
         require_once __DIR__ . '/../Views/pages/forgot-password.php';
     }
 
@@ -93,7 +86,6 @@ class AuthController {
             exit;
         }
 
-        // Vérification du token et de l'expiration
         $pdo = getDBConnection();
         $stmt = $pdo->prepare("SELECT id FROM utilisateurs WHERE reset_token = ? AND reset_expires_at > NOW() AND actif = 1");
         $stmt->execute([$token]);
@@ -121,10 +113,8 @@ class AuthController {
                 exit;
             }
 
-            // Hachage du nouveau mot de passe sécurisé (comme ton script utilitaire !)
             $newHash = password_hash($password, PASSWORD_BCRYPT);
 
-            // Mise à jour du mot de passe et suppression du token pour qu'il ne serve plus
             $update = $pdo->prepare("UPDATE utilisateurs SET mot_de_passe = ?, reset_token = NULL, reset_expires_at = NULL WHERE id = ?");
             $update->execute([$newHash, $user['id']]);
 
@@ -133,7 +123,6 @@ class AuthController {
             exit;
         }
 
-        // Affichage du formulaire de saisie du nouveau mot de passe
         require_once __DIR__ . '/../Views/pages/reset-password.php';
     }
 
