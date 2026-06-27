@@ -1,14 +1,12 @@
 document.addEventListener("DOMContentLoaded", function() {
     console.log("Page chargée, filtres initialisés.");
     
-    // On lie les événements "change" et "input" directement en JS pour éviter les ratés
     const inputs = document.querySelectorAll('#filterForm select, #filterForm input');
     inputs.forEach(input => {
         input.addEventListener('input', filterMenus);
         input.addEventListener('change', filterMenus);
     });
 
-    // On lance un premier coup de filtre au chargement au cas où la session contient des données
     filterMenus();
 });
 

@@ -1,0 +1,15 @@
+# Dépendances Composer 
+/vendor/
+
+# Fichiers de configuration sensibles (mots de passe BDD, clés API)
+config/config.local.php
+.env
+
+# Fichiers système et logs
+*.log
+.DS_Store
+Thumbs.db
+
+# Fichiers temporaires de l'éditeur
+.vscode/
+.idea/

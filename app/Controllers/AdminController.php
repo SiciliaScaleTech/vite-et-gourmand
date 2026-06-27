@@ -11,16 +11,16 @@ class AdminController {
         if (session_status() === PHP_SESSION_NONE) {
             session_start();
         }
-        // Sécurité centralisée : Seul l'admin passe
+
         if (!isset($_SESSION['user_id']) || ($_SESSION['user_role'] ?? '') !== 'admin') {
             header('Location: index.php?page=login');
             exit();
         }
     }
 
-    /**
-     * 1. TABLEAU DE BORD PRINCIPAL ADMIN
-     */
+    
+      // TABLEAU DE BORD PRINCIPAL ADMIN
+     
     public function dashboard() {
         $pdo = getDBConnection();
         $managerMongoDB = getMongoConnection();
@@ -33,7 +33,7 @@ class AdminController {
         $message = "";
         $messageClass = "";
 
-        // ACTION : AJOUTER UN EMPLOYÉ
+        // AJOUTER UN EMPLOYÉ
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['creer_employe'])) {
             $email = trim($_POST['email'] ?? '');
             $password = $_POST['password'] ?? '';
@@ -66,7 +66,7 @@ class AdminController {
             }
         }
 
-        // ACTION : ACTIVER / DÉSACTIVER UN COMPTE EMPLOYÉ
+        // ACTIVER / DÉSACTIVER UN COMPTE EMPLOYÉ
         if (isset($_GET['action']) && isset($_GET['id_user'])) {
             $id_user = (int)$_GET['id_user'];
             $action = $_GET['action'];
@@ -105,7 +105,6 @@ class AdminController {
         $date_fin = $_GET['date_fin'] ?? '';
 
         try {
-            // Sécurité technique : On force la conversion en tableau
             $query = new \MongoDB\Driver\Query([]);
             $cursor = $managerMongoDB->executeQuery($collectionMenus, $query);
 
@@ -143,13 +142,12 @@ class AdminController {
             echo "<div class='alert alert-danger'>Erreur Atlas : " . htmlspecialchars($e->getMessage()) . "</div>";
         }
 
-        // Appel de la vue indépendante
         require_once __DIR__ . '/../Views/admin/dashboard.php';
     }
 
-    /**
-     * PASSERELLE ASYNC POUR LE FILTRAGE JS / CHART.JS
-     */
+    
+    // PASSERELLE ASYNC POUR LE FILTRAGE JS / CHART.JS
+     
     public function apiFiltreStats() {
         header('Content-Type: application/json');
 
@@ -167,7 +165,6 @@ class AdminController {
         $date_fin = $data_input['date_fin'] ?? '';
 
         try {
-            // CORRECTION ICI : La synchronisation MySQL -> MongoDB prend TOUTES les commandes terminées, sans filtrer par date
             $sql = "
                 SELECT 
                     c.id as commande_id, c.date_commande, d.quantite, 
@@ -213,7 +210,6 @@ class AdminController {
                 }
             }
 
-            // EXTRACTION NO-SQL FILTRÉE (C'est ici qu'on applique les dates reçues du JS !)
             $labels_graphique = [];
             $donnees_graphique = [];
             $chiffre_affaires = 0;
@@ -236,7 +232,6 @@ class AdminController {
                             $date_commande = date('Y-m-d', strtotime($cmdData['date'] ?? ''));
                             $quantite = (int)($cmdData['quantite'] ?? 1);
 
-                            // Filtrage précis par date
                             if (!empty($date_debut) && $date_commande < $date_debut) continue;
                             if (!empty($date_fin) && $date_commande > $date_fin) continue;
 

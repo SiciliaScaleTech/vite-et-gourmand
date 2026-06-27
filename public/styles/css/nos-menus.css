@@ -1,7 +1,7 @@
-/* Force toutes les images des cards à avoir la même hauteur */
+
 .card-img-top {
-    height: 200px; /* Tu peux ajuster cette valeur selon tes goûts */
-    object-fit: cover; /* C'est LA propriété magique : elle recadre l'image sans la déformer */
+    height: 200px; 
+    object-fit: cover; 
     width: 100%;
 }
 

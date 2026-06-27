@@ -63,7 +63,8 @@ if (isset($_SESSION['panier']) && !empty($_SESSION['panier'])) {
                                             <a class="dropdown-item py-2 fw-bold text-success" href="<?= BASE_URL ?>index.php?page=admin-dashboard">Dashboard Admin</a>
                                         <?php else: ?>
 
-                                        <a class="dropdown-item py-2 fw-bold text-primary" href="<?= BASE_URL ?>index.php?page=employe-dashboard">Dashboard Employé</a>                                       <?php endif; ?>
+                                        <a class="dropdown-item py-2 fw-bold text-primary" href="<?= BASE_URL ?>index.php?page=employe-dashboard">Dashboard Employé</a>                                       
+                                        <?php endif; ?>
                                     </li>
                                 <?php endif; ?>
                                 

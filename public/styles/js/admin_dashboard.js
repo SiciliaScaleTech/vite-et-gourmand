@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
     let monGraphique = null;
 
-    // 1. Initialisation de Chart.js
+    // Initialisation de Chart.js
     const ctx = document.getElementById('chartMenus');
     if (ctx && typeof labelsMenus !== 'undefined' && typeof donneesVentes !== 'undefined') {
         monGraphique = new Chart(ctx.getContext('2d'), {
@@ -28,22 +28,18 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // 2. Interception du formulaire de filtrage (Ajax)
-    // 2. Interception du formulaire de filtrage (Ajax)
     const formFiltre = document.getElementById('formFiltre');
     if (formFiltre) {
         console.log("L'espion JS : Le formulaire a bien été trouvé dans la page !");
 
         formFiltre.addEventListener('submit', (e) => {
-            e.preventDefault(); // Empêche le rechargement physique de la page
-
+            e.preventDefault(); 
             const dateDebut = document.getElementById('date_debut').value;
             const dateFin = document.getElementById('date_fin').value;
 
             console.log("Clic détecté ! Dates envoyées :", { dateDebut, dateFin });
 
-            // CORRECTION : On pointe vers index.php et on inclut la page dans le JSON pour le routeur
-            // Ou on garde l'URL propre si ton routeur lit le GET en même temps que le POST
+           
             fetch('index.php?page=admin-api-filtre', {
                 method: 'POST',
                 headers: {

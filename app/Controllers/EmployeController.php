@@ -120,14 +120,14 @@ class EmployeController {
         $message = "";
         $messageClass = "";
 
-        // 1. TRAITEMENT DU FORMULAIRE 
+        // TRAITEMENT DU FORMULAIRE 
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_status'])) {
             $nouveau_statut = $_POST['statut'];
             $mode_contact = trim($_POST['mode_contact'] ?? '');
             $motif_annulation = trim($_POST['motif_annulation'] ?? '');
 
             if ($nouveau_statut === 'annulée' && (empty($mode_contact) || empty($motif_annulation))) {
-                $message = "⚠️ Erreur : Le mode de contact et le motif sont obligatoires pour une annulation.";
+                $message = "Erreur : Le mode de contact et le motif sont obligatoires pour une annulation.";
                 $messageClass = "alert-danger";
             } else {
                 try {
@@ -205,20 +205,19 @@ class EmployeController {
 
         require_once __DIR__ . '/../Views/employe/detail_commande.php';
     }
-    /**
-     * 5. GESTION DE LA CARTE (MENUS / PLATS)
-     */
+    
+     // GESTION DE LA CARTE (MENUS / PLATS)
+    
     public function carte() {
         global $pdo;
         $message = "";
 
-        // Récupération d'un éventuel message flash de succès
         if (isset($_SESSION['flash_success'])) {
             $message = "<div class='alert alert-success fw-bold'>" . $_SESSION['flash_success'] . "</div>";
             unset($_SESSION['flash_success']);
         }
 
-        // 1. TRAITEMENT DE LA SUPPRESSION D'UN MENU / PLAT
+        // TRAITEMENT DE LA SUPPRESSION D'UN MENU / PLAT
         if (isset($_GET['delete_id'])) {
             $delete_id = (int)$_GET['delete_id'];
             try {
@@ -230,7 +229,7 @@ class EmployeController {
             }
         }
 
-        // 2. RÉCUPÉRATION DE TOUS LES MENUS
+        // RÉCUPÉRATION DE TOUS LES MENUS
         try {
             $stmt = $pdo->prepare("SELECT * FROM menu ORDER BY categorie ASC, titre ASC"); 
             $stmt->execute();
@@ -239,19 +238,18 @@ class EmployeController {
             die("<div class='alert alert-danger'>Erreur SQL de chargement : " . $e->getMessage() . "</div>");
         }
 
-        // 3. CHARGEMENT DE LA VUE
         require_once __DIR__ . '/../Views/employe/carte.php';
     }
 
-    /**
-     * 6. MODIFICATION D'UN MENU / PLAT
-     */
+    
+     // MODIFICATION D'UN MENU / PLAT
+    
     public function modifierMenu() {
         global $pdo;
         $message = "";
         $messageClass = "";
 
-        // 1. RÉCUPÉRATION DU MENU ACTUEL
+        // RÉCUPÉRATION DU MENU ACTUEL
         if (!isset($_GET['id']) || empty($_GET['id'])) {
             header('Location: index.php?page=employe-carte');
             exit();
@@ -271,7 +269,7 @@ class EmployeController {
             die("Erreur BDD : " . $e->getMessage());
         }
 
-        // 2. TRAITEMENT DU FORMULAIRE LORS DE LA SOUMISSION (POST)
+        // TRAITEMENT DU FORMULAIRE LORS DE LA SOUMISSION 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $prix = floatval($_POST['prix_pers']);
             $stock = (int)$_POST['stock'];
@@ -292,7 +290,6 @@ class EmployeController {
                         $message = "Le menu a été mis à jour avec succès !";
                         $messageClass = "alert-success";
                         
-                        // On rafraîchit les données locales pour l'affichage à jour dans la vue
                         $menu['prix_pers'] = $prix;
                         $menu['stock'] = $stock;
                         $menu['description'] = $description;
@@ -308,13 +305,13 @@ class EmployeController {
             }
         }
 
-        // 3. CHARGEMENT DE LA VUE
+        // CHARGEMENT DE LA VUE
         require_once __DIR__ . '/../Views/employe/modifier_menu.php';
     }
 
-    /**
-     * 7. AJOUT D'UN NOUVEAU MENU / PLAT
-     */
+    
+     // AJOUT D'UN NOUVEAU MENU / PLAT
+    
     public function ajouterMenu() {
         global $pdo;
         $message = "";
@@ -342,7 +339,6 @@ class EmployeController {
             if (isset($_FILES['galerie']) && $_FILES['galerie']['error'] === 0) {
                 $dossier_destination = __DIR__ . "/../../../public/assets/images/";
                 
-                // On crée le dossier s'il n'existe pas
                 if (!is_dir($dossier_destination)) {
                     mkdir($dossier_destination, 0777, true);
                 }
@@ -367,7 +363,6 @@ class EmployeController {
                 }
             }
 
-            // Si aucune erreur, on insère en BDD
             if (empty($message) && !empty($titre) && !empty($categorie)) {
                 try {
                     $stmt = $pdo->prepare("INSERT INTO menu (titre, nom_technique, categorie, description, plats, stock, prix_pers, pers_min, conditions, allergene, galerie) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
@@ -376,7 +371,6 @@ class EmployeController {
                         $titre, $nom_technique, $categorie, $description, $plats_ordonnes, $stock, $prix_pers, $pers_min, $conditions, $allergene, $image_path
                     ]);
 
-                    // Redirection avec message flash
                     $_SESSION['flash_success'] = "Le menu « $titre » a été créé avec succès !";
                     header('Location: index.php?page=employe-carte');
                     exit();
@@ -387,18 +381,17 @@ class EmployeController {
             }
         }
 
-        // CHARGEMENT DE LA VUE
         require_once __DIR__ . '/../Views/employe/ajouter_menu.php';
     }
 
-   /**
-     * 8. AFFICHAGE, SUPPRESSION ET ARCHIVAGE DES MESSAGES REÇUS
-     */
+   
+      // AFFICHAGE, SUPPRESSION ET ARCHIVAGE DES MESSAGES REÇUS
+    
     public function voirMessages() {
         global $pdo;
         $message = "";
 
-        // 1. TRAITEMENT DE LA SUPPRESSION
+        // TRAITEMENT DE LA SUPPRESSION
         if (isset($_GET['action']) && $_GET['action'] === 'supprimer' && isset($_GET['id_message'])) {
             $id_message = (int)$_GET['id_message'];
             try {
@@ -410,7 +403,7 @@ class EmployeController {
             }
         }
 
-        // 2. TRAITEMENT DE L'ARCHIVAGE (On change juste le statut pour le ranger)
+        // TRAITEMENT DE L'ARCHIVAGE 
         if (isset($_GET['action']) && $_GET['action'] === 'archiver' && isset($_GET['id_message'])) {
             $id_message = (int)$_GET['id_message'];
             try {
@@ -422,20 +415,17 @@ class EmployeController {
             }
         }
 
-        // 3. RÉCUPÉRATION DES MESSAGES
+        // RÉCUPÉRATION DES MESSAGES
         try {
-            // Boîte de réception (Actifs)
             $stmtActifs = $pdo->query("SELECT * FROM contact_messages WHERE statut IS NULL OR statut != 'archive' ORDER BY date_envoi DESC");
             $messages = $stmtActifs->fetchAll(PDO::FETCH_ASSOC);
 
-            // Archives
             $stmtArchives = $pdo->query("SELECT * FROM contact_messages WHERE statut = 'archive' ORDER BY date_envoi DESC");
             $messages_archives = $stmtArchives->fetchAll(PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
             die("<div class='alert alert-danger'>Erreur SQL de chargement : " . $e->getMessage() . "</div>");
         }
 
-        // 4. CHARGEMENT DE LA VUE
         require_once __DIR__ . '/../Views/employe/messages.php';
     }
 }

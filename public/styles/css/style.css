@@ -78,7 +78,7 @@ footer {
     color: var(--cheddar);
 }
 
-/* Section Avis (Scroll horizontal) */
+/* Section Avis  */
 .testimonial-scroll {
     overflow-x: auto;
     display: flex;
@@ -132,12 +132,12 @@ footer {
 }
 
 .carte-header .titre-page {
-    font-size: 1.5rem !important; /* Titre plus compact sur mobile */
+    font-size: 1.5rem !important; 
     margin-bottom: 0;
 }
 
 .carte-header .btn-ajouter {
-    width: 100%; /* Le bouton prend toute la largeur sur mobile pour cliquer facilement */
+    width: 100%; 
     text-align: center;
     padding: 10px;
 }
@@ -156,10 +156,9 @@ footer {
     transform: scale(1.05);
 }
 
-/* --- FORMAT RESPONSIVE POUR LE PANIER (MOBILE) --- */
+/* FORMAT RESPONSIVE POUR LE PANIER (MOBILE) */
 @media screen and (max-width: 768px) {
     
-    /* On force le tableau, le corps et les lignes à se comporter comme des blocs verticaux */
     .table-responsive, 
     table.table, 
     table.table tbody, 
@@ -168,12 +167,10 @@ footer {
         width: 100% !important;
     }
 
-    /* On cache l'en-tête du tableau (Nom, Prix, Quantité...) car ça ne rentre plus */
     table.table thead {
         display: none;
     }
 
-    /* Chaque ligne du tableau devient une jolie carte individuelle */
     table.table tbody tr {
         margin-bottom: 15px;
         padding: 15px;
@@ -183,7 +180,6 @@ footer {
         box-shadow: 0 2px 4px rgba(0,0,0,0.05);
     }
 
-    /* Chaque cellule (case) se met à la ligne */
     table.table tbody td {
         display: flex;
         justify-content: space-between;
@@ -194,59 +190,54 @@ footer {
         border-bottom: 1px dashed #eee;
     }
 
-    /* On enlève la bordure pointillée pour la dernière case de la carte */
     table.table tbody td:last-child {
         border-bottom: none;
     }
 
-    /* --- ASTUCE MAGIQUE : Ajouter des labels automatiques --- */
     table.table tbody td::before {
-        content: attr(data-label); /* Va chercher le texte de l'attribut data-label */
+        content: attr(data-label); 
         font-weight: bold;
         text-align: left;
         color: #555;
         font-family: 'Poppins', sans-serif;
     }
 
-    /* Ajustement pour l'image du menu si tu en as une dans le panier */
     table.table tbody td img {
         max-width: 80px;
         height: auto;
-        margin-left: auto; /* Aligne l'image à droite */
+        margin-left: auto; 
     }
 
     .btn-enregistrer {
-        font-size: 0.95rem !important; /* On réduit un peu la taille du texte */
-        padding-left: 1.5rem !important; /* On réduit le gros padding horizontal */
-        padding-right: 1.5rem !important;
-        padding-top: 0.5rem !important;   /* On ajuste la hauteur pour qu'il soit moins massif */
+        font-size: 0.95rem !important; 
+        padding-left: 1.5rem !important; 
+        padding-top: 0.5rem !important;   
         padding-bottom: 0.5rem !important;
-        width: 100%; /* Optionnel : le bouton prend toute la largeur sur mobile pour être plus facile à cliquer, supprime cette ligne si tu veux qu'il reste aligné à droite */
+        width: 100%;
     }
 }
 
 
 
-/* --- MEDIA QUERY : POUR ORDINATEUR (Dès 768px) --- */
+/* MEDIA QUERY : POUR ORDINATEUR (Dès 768px) */
 @media screen and (min-width: 768px) {
     .carte-header {
         flex-direction: row;
         justify-content: space-between;
-        align-items: center; /* Aligne le titre et le bouton vert sur la même ligne au centre */
+        align-items: center; 
     }
 
     .header-titre-bloc {
         flex-direction: row;
-        align-items: center; /* Aligne le bouton retour et le titre H2 côte à côte */
-        gap: 20px;
+        align-items: center; 
     }
 
     .carte-header .titre-page {
-        font-size: 2rem !important; /* Le titre reprend sa taille normale sur PC */
+        font-size: 2rem !important; 
     }
 
     .carte-header .btn-ajouter {
-        width: auto; /* Le bouton vert reprend sa taille normale en fonction de son texte */
+        width: auto; 
         padding: 8px 20px;
     }
 }

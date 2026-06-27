@@ -7,12 +7,11 @@ require_once __DIR__ . '/../config/config.php';
 $pdo = getDBConnection();
 $page = isset($_GET['page']) ? $_GET['page'] : 'home';
 
-// On capture l'affichage ou on exécute la logique métier AVANT d'afficher le Header
 ob_start(); 
 
 try {
     switch ($page) {
-        // --- AUTHENTIFICATION ---
+        // AUTHENTIFICATION
         case 'login':
             $controller = new App\Controllers\AuthController();
             $controller->login();
@@ -28,7 +27,17 @@ try {
             $controller->logout();
             break;
 
-        // --- MENUS ---
+        case 'forgot-password':
+            $controller = new App\Controllers\AuthController();
+            $controller->forgotPassword();
+            break;
+
+        case 'reset-password':
+            $controller = new App\Controllers\AuthController();
+            $controller->resetPassword();
+            break;    
+
+        // MENUS 
         case 'menus':
             require_once __DIR__ . '/../app/Controllers/MenuController.php';
             $controller = new MenuController();
@@ -41,7 +50,7 @@ try {
             $controller->showDetails();
             break;
 
-        // --- PANIER ---
+        // PANIER
         case 'panier':
             require_once __DIR__ . '/../app/Controllers/CartController.php';
             $controller = new CartController();
@@ -78,7 +87,7 @@ try {
             $controller->confirmation();
             break;
 
-        // --- CONTACT ---
+        // CONTACT
         case 'contact':
             require_once __DIR__ . '/../app/Controllers/ContactController.php';
             $controller = new ContactController();
@@ -91,7 +100,7 @@ try {
             $controller->process();
             break;
 
-        // --- PROFIL ---
+        // PROFIL
         case 'profil':
             require_once __DIR__ . '/../app/Controllers/UserController.php';
             $controller = new UserController();
@@ -110,7 +119,7 @@ try {
             $controller->submitAvis();
             break;
 
-        // --- ACCUEIL ---
+        // ACCUEIL
         case 'home':
         case '': 
             require_once __DIR__ . '/../app/Controllers/HomeController.php';
@@ -118,7 +127,7 @@ try {
             $controller->index();
             break;
 
-        // --- ESPACE EMPLOYÉ & MODÉRATION ---
+        // ESPACE EMPLOYÉ & MODÉRATION
         case 'employe-dashboard':
             require_once __DIR__ . '/../app/Controllers/EmployeController.php';
             $controller = new App\Controllers\EmployeController();
@@ -161,7 +170,7 @@ try {
             $controller->voirMessages();
             break;   
             
-        // --- ESPACE ADMINISTRATEUR ---
+        // ESPACE ADMINISTRATEUR
         case 'admin-dashboard':
             require_once __DIR__ . '/../app/Controllers/AdminController.php';
             $controller = new App\Controllers\AdminController();
@@ -174,7 +183,26 @@ try {
             $controller->apiFiltreStats();
             break;    
 
-        // --- PAGE 404 ---
+        // PAGES LÉGALES 
+        case 'mentions-legales':
+            require_once __DIR__ . '/../app/Controllers/LegalController.php';
+            $controller = new App\Controllers\LegalController();
+            $controller->mentionsLegales();
+            break;
+
+        case 'politique-confidentialite':
+            require_once __DIR__ . '/../app/Controllers/LegalController.php';
+            $controller = new App\Controllers\LegalController();
+            $controller->politiqueConfidentialite();
+            break;
+
+        case 'cgu':
+            require_once __DIR__ . '/../app/Controllers/LegalController.php';
+            $controller = new App\Controllers\LegalController();
+            $controller->cgu();
+            break;    
+
+        // PAGE 404 
         default:
             http_response_code(404);
             echo "<div class='container py-5'><h1>404 - Page introuvable</h1></div>";
@@ -188,7 +216,6 @@ try {
 // On récupère le contenu de la vue générée
 $content = ob_get_clean();
 
-// On affiche la page dans le bon ordre d'en-têtes
 require_once __DIR__ . '/../app/Views/partials/header.php';
 echo $content;
 require_once __DIR__ . '/../app/Views/partials/footer.php';

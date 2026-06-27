@@ -70,7 +70,7 @@
                                                     <?= htmlspecialchars($m['description'] ?? 'Aucune description.') ?>
                                                 </small>
                                                 <?php if(!empty($m['allergene']) && strtolower($m['allergene']) !== 'neant'): ?>
-                                                    <small class="text-danger d-block">⚠️ Allergènes : <?= htmlspecialchars($m['allergene']) ?></small>
+                                                    <small class="text-danger d-block"> Allergènes : <?= htmlspecialchars($m['allergene']) ?></small>
                                                 <?php endif; ?>
                                             </td>
                                             <td>
@@ -141,7 +141,7 @@
                                 <div class="d-flex justify-content-between align-items-center mb-3">
                                     <div>
                                         <?php if(!empty($m['allergene']) && strtolower($m['allergene']) !== 'neant'): ?>
-                                            <span class="text-danger fw-bold d-block" style="font-size: 12px;">⚠️ <?= htmlspecialchars($m['allergene']) ?></span>
+                                            <span class="text-danger fw-bold d-block" style="font-size: 12px;"> <?= htmlspecialchars($m['allergene']) ?></span>
                                         <?php endif; ?>
                                     </div>
                                     <div>

@@ -128,9 +128,9 @@
                             <?php endforeach; ?>
                         </ul>
                         <div class="bg-light p-3 rounded-3">
-                            <p class="small mb-1"><strong>👥 Personnes minimum :</strong> <?= $info['pers_min']; ?></p>
-                            <p class="small mb-1"><strong>🕒 Conditions :</strong> <?= htmlspecialchars($info['conditions']); ?></p>
-                            <p class="small mb-0"><strong>⚠️ Allergènes :</strong> <span class="text-danger"><?= htmlspecialchars($info['allergene']); ?></span></p>
+                            <p class="small mb-1"><strong>Personnes minimum :</strong> <?= $info['pers_min']; ?></p>
+                            <p class="small mb-1"><strong>Conditions :</strong> <?= htmlspecialchars($info['conditions']); ?></p>
+                            <p class="small mb-0"><strong>Allergènes :</strong> <span class="text-danger"><?= htmlspecialchars($info['allergene']); ?></span></p>
                         </div>
                     </div>
                 </div>

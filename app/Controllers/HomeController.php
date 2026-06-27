@@ -20,7 +20,6 @@ class HomeController {
         $stmt->execute();
         $avis_valides = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-        // Charger la vue
         require_once __DIR__ . '/../Views/pages/home.php';
     }
 }

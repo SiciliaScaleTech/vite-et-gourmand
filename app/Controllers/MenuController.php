@@ -9,9 +9,9 @@ class MenuController {
         $this->menuModel = new MenuModel();
     }
 
-    /**
-     * Gère la page du catalogue des menus
-     */
+    
+     // Gère la page du catalogue des menus
+    
     public function index() {
         // Sauvegarde des filtres en session si présents dans l'URL
         if (!empty($_GET)) {
@@ -21,7 +21,6 @@ class MenuController {
             $_SESSION['f_aller'] = $_GET['allergene'] ?? '';
         }
 
-        // Valeurs pour réaffichage dans les inputs du filtre
         $filters = [
             'theme'     => $_SESSION['f_theme'] ?? '',
             'prix_max'  => $_SESSION['f_prix'] ?? '',
@@ -29,19 +28,16 @@ class MenuController {
             'allergene' => $_SESSION['f_aller'] ?? ''
         ];
 
-        // Données récupérées via le modèle
         $menus = $this->menuModel->getAllMenus();
 
-        // Les détails statiques 
         $menus_details = $this->getStaticMenusDetails();
 
-        // Envoi des variables vers la vue
         require_once __DIR__ . '/../Views/pages/menus.php';
     }
 
-    /**
-     * Gère la page de détails d'un menu
-     */
+    
+    // Gère la page de détails d'un menu
+    
     public function showDetails() {
         $id = $_GET['id'] ?? null;
         if (!$id) {
@@ -58,9 +54,7 @@ class MenuController {
         require_once __DIR__ . '/../Views/pages/details-menu.php';
     }
 
-    /**
-     * Données temporaires pour les modals
-     */
+     
     private function getStaticMenusDetails() {
         return [
             'Noel' => [

@@ -38,7 +38,7 @@
                 <div class="card-body p-0">
                     <?php if (empty($messages)): ?>
                         <div class="p-5 text-center text-muted">
-                            <p class="mb-0 fw-semibold">Aucun nouveau message en attente. ✨</p>
+                            <p class="mb-0 fw-semibold">Aucun nouveau message en attente. </p>
                         </div>
                     <?php else: ?>
                         <div class="table-responsive">
@@ -102,7 +102,7 @@
             </div>
         </div>
 
-        <!-- ONGLET 2 : ARCHIVES -->
+        <!--ARCHIVES -->
         <div class="tab-pane fade" id="archives" role="tabpanel">
             <div class="card shadow border-0 rounded-4 overflow-hidden">
                 <div class="card-body p-0">

@@ -9,9 +9,9 @@ class MenuModel {
         $this->db = getDBConnection();
     }
 
-    /**
-     * Récupère tous les menus de la base de données
-     */
+    
+     // Récupère tous les menus de la base de données
+    
     public function getAllMenus() {
         if (!$this->db) return [];
         
@@ -24,9 +24,9 @@ class MenuModel {
         }
     }
 
-    /**
-     * Récupère un menu spécifique par son ID
-     */
+    
+     // Récupère un menu spécifique par son ID
+    
     public function getMenuById($id) {
         if (!$this->db) return null;
 

@@ -3,9 +3,9 @@
 define('BASE_URL', '/vite-et-gourmand/public/');
 define('APP_NAME', 'Vite & Gourmand');
 
-/**
- * Fonction globale pour récupérer la connexion PDO en toute sécurité
- */
+
+ // Fonction globale pour récupérer la connexion PDO 
+
 function getDBConnection() {
     static $pdo = null;
 
@@ -37,9 +37,7 @@ function getDBConnection() {
     }
 }
 
-/**
- * Fonction globale pour récupérer la connexion MongoDB Atlas en toute sécurité
- */
+
 function getMongoConnection() {
     static $manager = null;
 
@@ -48,7 +46,6 @@ function getMongoConnection() {
     }
 
     try {
-        // Remplace par ta vraie chaîne de connexion si elle est différente
         $uri = "mongodb+srv://siciliascaletech_db_user:LexaZack11082020@cluster1.nymkcqx.mongodb.net/"; 
         $manager = new MongoDB\Driver\Manager($uri);
         return $manager;
@@ -58,5 +55,4 @@ function getMongoConnection() {
     }
 }
 
-// Nom de la collection (utilisée partout dans ton app)
 define('MONGO_COLLECTION_MENUS', 'viteetgourmand.menu'); // bdd.collection

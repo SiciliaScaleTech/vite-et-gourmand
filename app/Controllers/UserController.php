@@ -11,7 +11,7 @@ class UserController {
         $this->pdo = getDBConnection();
     }
 
-    // --- PAGE PROFIL PRINCIPALE ---
+    //PAGE PROFIL PRINCIPALE
     public function index() {
         $user_id = $_SESSION['user_id'];
         
@@ -20,17 +20,16 @@ class UserController {
         $message_avis = $_SESSION['avis_message'] ?? "";
         unset($_SESSION['profile_message'], $_SESSION['avis_message']);
 
-        // 1. Récupération des données utilisateur
+        // Récupération des données utilisateur
         $stmt = $this->pdo->prepare("SELECT nom, prenom, email, telephone, adresse, code_postal, ville, role FROM utilisateurs WHERE id = ?");
         $stmt->execute([$user_id]);
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        // 2. Récupération des commandes
+        // Récupération des commandes
         $stmt_cmd = $this->pdo->prepare("SELECT * FROM commandes WHERE id_utilisateur = ? ORDER BY date_commande DESC");
         $stmt_cmd->execute([$user_id]);
         $commandes = $stmt_cmd->fetchAll(PDO::FETCH_ASSOC);
 
-        // 3. Récupération des lignes de détails des commandes pour les modals
         $details_commandes = [];
         if (!empty($commandes)) {
             $stmt_details = $this->pdo->prepare("
@@ -48,7 +47,7 @@ class UserController {
         require_once __DIR__ . '/../Views/pages/profil.php';
     }
 
-    // --- TRAITEMENT MISE À JOUR DU PROFIL ---
+    // TRAITEMENT MISE À JOUR DU PROFIL
     public function updateProfile() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_profile'])) {
             $user_id = $_SESSION['user_id'];
@@ -74,7 +73,7 @@ class UserController {
         exit();
     }
 
-    // --- TRAITEMENT ENVOI D'UN AVIS ---
+    // TRAITEMENT ENVOI D'UN AVIS
     public function submitAvis() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_avis'])) {
             $user_id = $_SESSION['user_id'];
@@ -86,12 +85,12 @@ class UserController {
                     $stmt = $this->pdo->prepare("INSERT INTO avis (id_utilisateur, commentaire, note, statut, date_avis) 
                                                  VALUES (?, ?, ?, 'en attente', NOW())");
                     $stmt->execute([$user_id, $commentaire, $note]);
-                    $_SESSION['avis_message'] = "<div class='alert alert-success fw-bold border-0 shadow-sm rounded-4'>✨ Merci ! Votre avis a été envoyé. Il sera publié après validation.</div>";
+                    $_SESSION['avis_message'] = "<div class='alert alert-success fw-bold border-0 shadow-sm rounded-4'>Merci ! Votre avis a été envoyé. Il sera publié après validation.</div>";
                 } catch (PDOException $e) {
                     $_SESSION['avis_message'] = "<div class='alert alert-danger border-0 shadow-sm'>Erreur lors de l'envoi de l'avis.</div>";
                 }
             } else {
-                $_SESSION['avis_message'] = "<div class='alert alert-warning border-0 shadow-sm'>⚠️ Veuillez rédiger un commentaire.</div>";
+                $_SESSION['avis_message'] = "<div class='alert alert-warning border-0 shadow-sm'>Veuillez rédiger un commentaire.</div>";
             }
         }
         header("Location: " . BASE_URL . "index.php?page=profil");

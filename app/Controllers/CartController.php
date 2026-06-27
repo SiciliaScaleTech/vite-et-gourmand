@@ -8,7 +8,7 @@ class CartController {
         $this->pdo = getDBConnection();
     }
 
-    // --- AFFICHER LE PANIER ---
+    // AFFICHER LE PANIER 
     public function index() {
         $panier_details = [];
         $total_general = 0;
@@ -26,7 +26,6 @@ class CartController {
                 $sous_total = $menu['prix_pers'] * $quantite;
                 $total_general += $sous_total;
 
-                // Gestion de l'image
                 $galerie_nettoyee = str_replace('assets/', '', $menu['galerie']);
                 $images_tableau = explode('|', $galerie_nettoyee);
                 $premiere_image = $images_tableau[0];
@@ -45,7 +44,7 @@ class CartController {
         require_once __DIR__ . '/../Views/pages/panier.php';
     }
 
-    // --- AJOUTER UN ELEMENT AU PANIER ---
+    // AJOUTER UN ELEMENT AU PANIER 
     public function add() {
         $id = $_GET['id'] ?? null;
 
@@ -82,7 +81,7 @@ class CartController {
         exit();
     }
 
-    // --- SUPPRIMER ENTIÈREMENT UN ÉLÉMENT ---
+    // SUPPRIMER ENTIÈREMENT UN ÉLÉMENT 
     public function delete() {
         $id_a_supprimer = $_GET['id'] ?? null;
 
@@ -93,7 +92,7 @@ class CartController {
         exit();
     }
 
-    // --- VALIDER LA COMMANDE ---
+    // VALIDER LA COMMANDE 
     public function validate() {
         // Sécurité : Si pas connecté ou panier vide
         if (!isset($_SESSION['user_id']) || empty($_SESSION['panier'])) {
@@ -137,7 +136,7 @@ class CartController {
         }
     }
 
-    // --- PAGE DE CONFIRMATION ---
+    //  PAGE DE CONFIRMATION 
     public function confirmation() {
         $id_commande = $_GET['id'] ?? 'inconnue';
         require_once __DIR__ . '/../Views/pages/confirmation.php';

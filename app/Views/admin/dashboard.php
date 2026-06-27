@@ -128,7 +128,7 @@
                                     <a href="<?= BASE_URL ?>index.php?page=admin-dashboard&action=<?= $emp['actif'] == 1 ? 'desactiver' : 'activer' ?>&id_user=<?= $emp['id'] ?>" 
                                        class="btn btn-sm btn-outline-<?= $emp['actif'] == 1 ? 'danger' : 'success' ?> w-100 rounded-pill py-2"
                                        onclick="return confirm('Confirmer l\'action sur ce compte ?');">
-                                        <?= $emp['actif'] == 1 ? '🔒 Bloquer le compte' : '🔓 Réactiver le compte' ?>
+                                        <?= $emp['actif'] == 1 ? 'Bloquer le compte' : 'Réactiver le compte' ?>
                                     </a>
                                 </div>
                             <?php endforeach; ?>
