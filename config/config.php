@@ -14,10 +14,10 @@ function getDBConnection() {
     }
 
     // Identifiants 
-    $host     = getenv('DB_HOST') ?: '127.0.0.1;port=3307';
-    $dbname   = getenv('MYSQLDATABASE') ?: 'viteetgourmand'; 
-    $username = getenv('DB_USER') ?: 'root';
-    $password = getenv('DB_PASS') ?: ''; 
+    $host     = getenv('DB_HOST') ?: '127.0.0.1;port=3306';
+    $dbname   = getenv('MYSQLDATABASE') ?: 'sc3miju5980_vite-et-gourmand'; 
+    $username = getenv('DB_USER') ?: 'fastdev';
+    $password = getenv('DB_PASS') ?: 'FastDev123!'; 
 
     try {
         $pdo = new PDO(
