@@ -1,0 +1,12 @@
+# 1. Empêcher les utilisateurs de lister le contenu des dossiers s'il n'y a pas d'index
+Options -Indexes
+
+# 2. Activer le moteur de réécriture d'URL
+RewriteEngine On
+
+# 3. Si le fichier ou le dossier demandé existe réellement (comme une image, du CSS ou du JS), on y accède directement
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# 4. Sinon, on redirige tout en toute sécurité vers le routeur principal
+RewriteRule ^(.*)$ public/index.php [L,QSA]
