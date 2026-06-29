@@ -1,12 +1,29 @@
-# 1. Empêcher les utilisateurs de lister le contenu des dossiers s'il n'y a pas d'index
-Options -Indexes
-
-# 2. Activer le moteur de réécriture d'URL
+Activer la réécriture
 RewriteEngine On
 
-# 3. Si le fichier ou le dossier demandé existe réellement (comme une image, du CSS ou du JS), on y accède directement
+Exception pour le dossier uploads (laisser passer les images, pdf, etc.)
+RewriteCond %{REQUEST_URI} ^/uploads/ [NC]
+RewriteRule ^ - [L]
+
+Rediriger toutes les requêtes vers index.php
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^ index.php [QSA,L]
 
-# 4. Sinon, on redirige tout en toute sécurité vers le routeur principal
-RewriteRule ^(.*)$ public/index.php [L,QSA]
+Bloquer accès fichiers sensibles
+<FilesMatch ".(env|ini|sql|log|sh|bak|git|htaccess)$">
+  Order allow,deny
+  Deny from all
+</FilesMatch>
+
+Empêcher l’exécution PHP dans /uploads
+<FilesMatch ".php$">
+  SetHandler none
+</FilesMatch>
+
+Pages d’erreur perso
+#ErrorDocument 404 /404.html
+#ErrorDocument 403 /403.html
+
+#Encodage UTF-8
+AddDefaultCharset UTF-8
