@@ -5,9 +5,9 @@ Application web de gestion et de commande de menus traiteur développée en PHP 
 ## Documentation du projet
 
 Les livrables officiels au format PDF sont consultables directement dans le dépôt :
-- [Manuel d'utilisation](./Documentations/manuel_utilisation.pdf)
-- [Charte graphique (avec maquettes)](./documentation/charte_graphique.pdf)
-- [Documentation technique et Gestion de projet](./documentation/Gestion_de_projet.pdf)
+- [Manuel d'utilisation](./Documentations/Manuel_dutilisation.pdf)
+- [Charte graphique (avec maquettes)](./Documentations/Charte_graphique.pdf)
+- [Documentation technique et Gestion de projet](./Documentations/Gestion_de_projet.pdf)
 
 ## Fonctionnalités
 
