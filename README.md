@@ -2,6 +2,13 @@
 
 Application web de gestion et de commande de menus traiteur développée en PHP selon une architecture MVC.
 
+## Documentation du projet
+
+Les livrables officiels au format PDF sont consultables directement dans le dépôt :
+- [Manuel d'utilisation](./Documentations/manuel_utilisation.pdf)
+- [Charte graphique (avec maquettes)](./documentation/charte_graphique.pdf)
+- [Documentation technique et Gestion de projet](./documentation/Gestion_de_projet.pdf)
+
 ## Fonctionnalités
 
 - Authentification avec hachage des mots de passe (bcrypt) et réinitialisation de mot de passe.
